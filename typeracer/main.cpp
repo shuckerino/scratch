@@ -1,16 +1,16 @@
 #include <cstdio>
+#include <cstdlib>
 #include <iostream>
 #include <ostream>
+#include <unistd.h>
 #include <fstream>
 #include <string>
 #include <vector>
 #include <random>
 #include "Stopwatch.hpp"
 #include <bits/stdc++.h>
-#include <stdio.h>
 
 #define WORD_COUNT 20
-
 
 // Function to split the string to words in a vector
 // separated by the delimiter
@@ -38,7 +38,7 @@ std::vector<std::string> split(std::string str, std::string delimiter)
     return v;
 }
 
-int main(){
+void play_word_game(){
     std::ifstream word_file;
     word_file.open("words.txt");
 
@@ -103,6 +103,32 @@ int main(){
     std::cout << "WPM: " << user_text_vec.size() * (60 / duration_s) << std::endl;
     // std::cout << "Matches: " << count_of_matches << " and texted word count: " << user_text_vec.size() << std::endl;
     std::cout << "Accuracy: " << count_of_matches / user_text_vec.size() * 100 << " %" << std::endl;
+}
+
+int main(){
+
+   std::cout << "Welcome to Typeracer, a simple typing speed test!" << std::endl;
+
+   while (true) {
+       std::cout << "What do you want to do?" << std::endl;
+       std::cout << "1) Play a game" << std::endl;
+       std::cout << "2) Exit" << std::endl;
+
+       std::string user_action;
+       std::cin >> user_action;
+       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer
+       if (user_action == "1"){
+           play_word_game();
+       }
+       else if (user_action == "2"){
+           std::cout << "Goodbye!" << std::endl;
+           exit(0);
+       }
+       else{
+           std::cout << "Invalid action, please select one of the listed options..." << std::endl;
+           continue;
+       }
+   }
 
     return 0;
 }
